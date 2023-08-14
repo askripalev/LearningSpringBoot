@@ -20,7 +20,7 @@ public class PersonController implements ErrorController {
         return "Something went wrong: " + response.getStatus();
     }
 
-    @PostMapping("person")
+    @PostMapping("/person")
     public PersonResponseDto save(@RequestBody PersonRequestDto personRequestDto) {
         return personService.savePerson(personRequestDto);
     }

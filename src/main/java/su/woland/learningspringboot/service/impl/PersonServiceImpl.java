@@ -11,11 +11,11 @@ import su.woland.learningspringboot.service.PersonService;
 @AllArgsConstructor
 @Service
 public class PersonServiceImpl implements PersonService {
+    private final PersonConverter personConverter;
     private final PersonRepository personRepository;
 
+    @Override
     public PersonResponseDto savePerson(PersonRequestDto personRequestDto) {
-        PersonConverter personConverter = new PersonConverter();
-
         return personConverter.entityToResponse(personRepository.save(personConverter.requestToEntity(personRequestDto)));
     }
 
