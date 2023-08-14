@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-public class MyErrorController implements ErrorController {
+public class PersonErrorController implements ErrorController {
 
     @RequestMapping("/error")
     String error(HttpServletResponse response) {
