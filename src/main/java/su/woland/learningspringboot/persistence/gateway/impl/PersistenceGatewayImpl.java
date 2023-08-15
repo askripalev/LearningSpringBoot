@@ -11,6 +11,7 @@ import su.woland.learningspringboot.persistence.PersonPersistence;
 public class PersistenceGatewayImpl implements PersistenceGateway {
     PersonPersistence personPersistence;
 
+    @Override
     public PersonEntity savePerson(PersonEntity personEntity) {
         return personPersistence.save(personEntity);
     }
