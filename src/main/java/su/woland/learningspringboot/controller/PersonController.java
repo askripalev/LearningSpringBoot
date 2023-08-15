@@ -3,6 +3,7 @@ package su.woland.learningspringboot.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.*;
+import su.woland.learningspringboot.controller.mapper.RequestMapper;
 import su.woland.learningspringboot.service.PersonService;
 import su.woland.learningspringboot.controller.dto.PersonRequestDto;
 import su.woland.learningspringboot.controller.dto.PersonResponseDto;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 public class PersonController implements ErrorController {
 
     private final PersonService personService;
+    private final RequestMapper requestMapper;
 
     @RequestMapping("/error")
     public String error(HttpServletResponse response) {
@@ -22,7 +24,7 @@ public class PersonController implements ErrorController {
 
     @PostMapping("/person")
     public PersonResponseDto save(@RequestBody PersonRequestDto personRequestDto) {
-        return personService.savePerson(personRequestDto);
+        return requestMapper.fromServiceDto(personService.savePerson(requestMapper.toServiceDto(personRequestDto)));
     }
 
 }

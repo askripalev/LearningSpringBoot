@@ -1,4 +1,4 @@
-package su.woland.learningspringboot.storage.entity;
+package su.woland.learningspringboot.persistence.entity;
 
 import lombok.Getter;
 import lombok.Setter;
