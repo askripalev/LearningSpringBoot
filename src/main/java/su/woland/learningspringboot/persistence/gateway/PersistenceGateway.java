@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import su.woland.learningspringboot.persistence.gateway.dto.PersistenceGatewayDto;
 import su.woland.learningspringboot.persistence.gateway.mapper.PersistenceGatewayMapper;
-import su.woland.learningspringboot.persistence.repository.PersonRepository;
+import su.woland.learningspringboot.persistence.PersonRepository;
 
 @Component
 @AllArgsConstructor

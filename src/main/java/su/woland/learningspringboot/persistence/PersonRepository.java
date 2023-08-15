@@ -1,4 +1,4 @@
-package su.woland.learningspringboot.persistence.repository;
+package su.woland.learningspringboot.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import su.woland.learningspringboot.persistence.entity.PersonEntity;
