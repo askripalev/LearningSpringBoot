@@ -9,14 +9,18 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.text.WordUtils;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 
+@Profile(value = "dev")
 @Component
 @Log4j2
 public class LogFilter extends OncePerRequestFilter {
@@ -29,8 +33,8 @@ public class LogFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(cachedRequest, cachedResponse);
 
-        log.info(logRequest(cachedRequest));
-        log.info(logResponse(cachedResponse));
+        log.info("Request:\n" + logRequest(cachedRequest));
+        log.info("Response:\n" + logResponse(cachedResponse));
     }
 
     private @NotNull String logRequest(@NotNull ContentCachingRequestWrapper cachedRequest) throws JsonProcessingException {
@@ -40,12 +44,15 @@ public class LogFilter extends OncePerRequestFilter {
 
         while (requestHeaders.hasMoreElements()) {
             String header = requestHeaders.nextElement();
-            requestLog.append(WordUtils.capitalize(header)).append(": ").append(cachedRequest.getHeader(header)).append("\n");
+            requestLog.append(WordUtils.capitalize(header))
+                    .append(": ")
+                    .append(cachedRequest.getHeader(header))
+                    .append("\n");
         }
 
-        requestLog.append("Body: ").append(jsonPrettyPrint(new String(requestBody, StandardCharsets.UTF_8)));
+        requestLog.append("Body:\n").append(jsonPrettyPrint(new String(requestBody, StandardCharsets.UTF_8)));
 
-        return "Request:\n" + requestLog;
+        return requestLog.toString();
     }
 
     private @NotNull String logResponse(@NotNull ContentCachingResponseWrapper cachedResponse) throws IOException {
@@ -53,10 +60,22 @@ public class LogFilter extends OncePerRequestFilter {
         byte[] responseBody = cachedResponse.getContentAsByteArray();
 
         cachedResponse.copyBodyToResponse();
-        cachedResponse.getHeaderNames().forEach(item -> responseLog.append(item).append(": ").append(cachedResponse.getHeader(item)).append("\n"));
-        responseLog.append("Body: ").append(jsonPrettyPrint(new String(responseBody, StandardCharsets.UTF_8)));
 
-        return "Response:\n" + responseLog;
+        responseLog.append("Status: ")
+                .append(cachedResponse.getStatus())
+                .append(" ")
+                .append(HttpStatus.valueOf(cachedResponse.getStatus()).getReasonPhrase())
+                .append("\n");
+
+        cachedResponse.getHeaderNames()
+                .forEach(item -> responseLog.append(item)
+                        .append(": ")
+                        .append(cachedResponse.getHeader(item))
+                        .append("\n"));
+
+        responseLog.append("Body:\n").append(jsonPrettyPrint(new String(responseBody, StandardCharsets.UTF_8)));
+
+        return responseLog.toString();
     }
 
     private String jsonPrettyPrint(String sourceJsonString) throws JsonProcessingException {
