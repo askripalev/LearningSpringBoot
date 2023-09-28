@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
@@ -25,7 +24,6 @@ public class LogFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain)
             throws ServletException, IOException {
-
         ContentCachingRequestWrapper cachedRequest = new ContentCachingRequestWrapper(request);
         ContentCachingResponseWrapper cachedResponse = new ContentCachingResponseWrapper(response);
 
@@ -36,29 +34,29 @@ public class LogFilter extends OncePerRequestFilter {
     }
 
     private @NotNull String logRequest(@NotNull ContentCachingRequestWrapper cachedRequest) throws JsonProcessingException {
-        StringBuilder log = new StringBuilder();
+        StringBuilder requestLog = new StringBuilder();
         byte[] requestBody = cachedRequest.getContentAsByteArray();
         Enumeration<String> requestHeaders = cachedRequest.getHeaderNames();
 
         while (requestHeaders.hasMoreElements()) {
             String header = requestHeaders.nextElement();
-            log.append(WordUtils.capitalize(header)).append(": ").append(cachedRequest.getHeader(header)).append("\n");
+            requestLog.append(WordUtils.capitalize(header)).append(": ").append(cachedRequest.getHeader(header)).append("\n");
         }
 
-        log.append(jsonPrettyPrint(new String(requestBody, StandardCharsets.UTF_8)));
+        requestLog.append("Body: ").append(jsonPrettyPrint(new String(requestBody, StandardCharsets.UTF_8)));
 
-        return "Request:\n" + log;
+        return "Request:\n" + requestLog;
     }
 
     private @NotNull String logResponse(@NotNull ContentCachingResponseWrapper cachedResponse) throws IOException {
-        StringBuilder log = new StringBuilder();
+        StringBuilder responseLog = new StringBuilder();
         byte[] responseBody = cachedResponse.getContentAsByteArray();
 
         cachedResponse.copyBodyToResponse();
-        cachedResponse.getHeaderNames().forEach(item -> log.append(item).append(": ").append(cachedResponse.getHeader(item)).append("\n"));
-        log.append(jsonPrettyPrint(new String(responseBody, StandardCharsets.UTF_8)));
+        cachedResponse.getHeaderNames().forEach(item -> responseLog.append(item).append(": ").append(cachedResponse.getHeader(item)).append("\n"));
+        responseLog.append("Body: ").append(jsonPrettyPrint(new String(responseBody, StandardCharsets.UTF_8)));
 
-        return "Response:\n" + log;
+        return "Response:\n" + responseLog;
     }
 
     private String jsonPrettyPrint(String sourceJsonString) throws JsonProcessingException {
@@ -67,4 +65,5 @@ public class LogFilter extends OncePerRequestFilter {
 
         return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
     }
+
 }

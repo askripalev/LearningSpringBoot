@@ -9,10 +9,12 @@ import su.woland.learningspringboot.persistence.repository.PersonRepository;
 @Component
 @AllArgsConstructor
 public class PersistenceGatewayImpl implements PersistenceGateway {
+
     PersonRepository personRepository;
 
     @Override
     public PersonEntity savePerson(PersonEntity personEntity) {
         return personRepository.save(personEntity);
     }
+
 }

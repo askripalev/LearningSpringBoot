@@ -1,14 +1,14 @@
 package su.woland.learningspringboot.service.mapper;
 
-import lombok.extern.log4j.Log4j2;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 import su.woland.learningspringboot.persistence.entity.PersonEntity;
 import su.woland.learningspringboot.service.dto.PersonServiceDto;
 
-@Log4j2
 @Component
 public class ServiceMapper {
-    public PersonEntity toPersonEntity(PersonServiceDto personServiceDto) {
+
+    public PersonEntity toPersonEntity(@NotNull PersonServiceDto personServiceDto) {
         PersonEntity personEntity = new PersonEntity();
 
         personEntity.setName(personServiceDto.getName());
@@ -17,7 +17,7 @@ public class ServiceMapper {
         return personEntity;
     }
 
-    public PersonServiceDto toPersonServiceDto(PersonEntity personEntity) {
+    public PersonServiceDto toPersonServiceDto(@NotNull PersonEntity personEntity) {
         PersonServiceDto personServiceDto = new PersonServiceDto();
 
         personServiceDto.setId(personEntity.getId());
@@ -26,4 +26,5 @@ public class ServiceMapper {
 
         return personServiceDto;
     }
+
 }
