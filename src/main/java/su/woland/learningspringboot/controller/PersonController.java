@@ -11,7 +11,6 @@ import su.woland.learningspringboot.controller.mapper.RequestMapper;
 import su.woland.learningspringboot.service.PersonService;
 
 @AllArgsConstructor
-@ControllerAdvice
 @RestController
 public class PersonController {
 
@@ -20,7 +19,7 @@ public class PersonController {
 
     @PostMapping("/person")
     public PersonResponseDto save(@RequestBody PersonRequestDto personRequestDto) {
-        return requestMapper.fromServiceDto(personService.savePerson(requestMapper.toServiceDto(personRequestDto)));
+        return requestMapper.toPersonResponseDto(personService.savePerson(requestMapper.toServiceDto(personRequestDto)));
     }
 
 }

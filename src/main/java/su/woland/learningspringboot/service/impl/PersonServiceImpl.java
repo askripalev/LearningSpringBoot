@@ -15,7 +15,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonServiceDto savePerson(PersonServiceDto personServiceDto) {
-        return serviceMapper.fromPersonEntity(persistenceGateway.savePerson(serviceMapper.toPersonEntity(personServiceDto)));
+        return serviceMapper.toPersonServiceDto(persistenceGateway.savePerson(serviceMapper.toPersonEntity(personServiceDto)));
     }
 
 }

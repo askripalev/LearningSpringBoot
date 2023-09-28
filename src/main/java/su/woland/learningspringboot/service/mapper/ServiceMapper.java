@@ -14,20 +14,16 @@ public class ServiceMapper {
         personEntity.setName(personServiceDto.getName());
         personEntity.setAge(personServiceDto.getAge());
 
-        log.info("toPersonEntity in: " + personServiceDto.getName());
-        log.info("toPersonEntity out: " + personEntity.getName());
         return personEntity;
     }
 
-    public PersonServiceDto fromPersonEntity(PersonEntity personEntity) {
+    public PersonServiceDto toPersonServiceDto(PersonEntity personEntity) {
         PersonServiceDto personServiceDto = new PersonServiceDto();
 
         personServiceDto.setId(personEntity.getId());
         personServiceDto.setName(personEntity.getName());
         personServiceDto.setAge(personEntity.getAge());
 
-        log.info("fromPersonEntity in: " + personEntity.getName());
-        log.info("fromPersonEntity out: " + personServiceDto.getName());
         return personServiceDto;
     }
 }

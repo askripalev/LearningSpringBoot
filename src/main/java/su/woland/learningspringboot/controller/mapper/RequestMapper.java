@@ -15,20 +15,16 @@ public class RequestMapper {
         personServiceDto.setName(personRequestDto.getName());
         personServiceDto.setAge(personRequestDto.getAge());
 
-        log.info("toServiceDto in: " + personRequestDto.getName());
-        log.info("toServiceDto out: " + personServiceDto.getName());
         return personServiceDto;
     }
 
-    public PersonResponseDto fromServiceDto(PersonServiceDto personServiceDto) {
+    public PersonResponseDto toPersonResponseDto(PersonServiceDto personServiceDto) {
         PersonResponseDto personResponseDto = new PersonResponseDto();
 
         personResponseDto.setId(personServiceDto.getId());
         personResponseDto.setName(personServiceDto.getName());
         personResponseDto.setAge(personServiceDto.getAge());
 
-        log.info("fromServiceDto in: " + personServiceDto.getName());
-        log.info("fromServiceDto out: " + personResponseDto.getName());
         return personResponseDto;
     }
 }
