@@ -1,9 +1,9 @@
 package su.woland.learningspringboot.persistence.gateway;
 
-import su.woland.learningspringboot.persistence.entity.PersonEntity;
+import su.woland.learningspringboot.persistence.entity.Person;
 
 public interface PersistenceGateway {
 
-    PersonEntity savePerson(PersonEntity personEntity);
+    Person savePerson(Person person);
 
 }

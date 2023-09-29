@@ -20,10 +20,10 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 
-@Profile(value = "dev")
+@Profile(value = "log")
 @Component
 @Log4j2
-public class LogFilter extends OncePerRequestFilter {
+public class AccessLogger extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain)

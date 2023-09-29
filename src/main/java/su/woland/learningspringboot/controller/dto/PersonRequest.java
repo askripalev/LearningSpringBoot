@@ -5,9 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PersonResponseDto {
+public class PersonRequest {
 
-    private Long id;
     private String name;
     private Integer age;
 

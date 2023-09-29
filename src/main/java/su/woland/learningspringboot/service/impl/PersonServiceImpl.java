@@ -2,24 +2,24 @@ package su.woland.learningspringboot.service.impl;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import su.woland.learningspringboot.persistence.entity.PersonEntity;
+import su.woland.learningspringboot.persistence.entity.Person;
 import su.woland.learningspringboot.persistence.gateway.PersistenceGateway;
 import su.woland.learningspringboot.service.PersonService;
-import su.woland.learningspringboot.service.dto.PersonServiceDto;
-import su.woland.learningspringboot.service.mapper.ServiceMapper;
+import su.woland.learningspringboot.service.dto.PersonServiceData;
+import su.woland.learningspringboot.service.mapper.ServicePersistenceMapper;
 
 @AllArgsConstructor
 @Service
 public class PersonServiceImpl implements PersonService {
 
-    private final ServiceMapper serviceMapper;
+    private final ServicePersistenceMapper servicePersistenceMapper;
     private final PersistenceGateway persistenceGateway;
 
     @Override
-    public PersonServiceDto savePerson(PersonServiceDto personServiceDto) {
-        PersonEntity personEntity = persistenceGateway.savePerson(serviceMapper.toPersonEntity(personServiceDto));
+    public PersonServiceData savePerson(PersonServiceData personServiceData) {
+        Person person = persistenceGateway.savePerson(servicePersistenceMapper.toPerson(personServiceData));
 
-        return serviceMapper.toPersonServiceDto(personEntity);
+        return servicePersistenceMapper.toPersonServiceData(person);
     }
 
 }

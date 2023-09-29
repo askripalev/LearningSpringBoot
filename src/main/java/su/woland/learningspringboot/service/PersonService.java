@@ -1,9 +1,9 @@
 package su.woland.learningspringboot.service;
 
-import su.woland.learningspringboot.service.dto.PersonServiceDto;
+import su.woland.learningspringboot.service.dto.PersonServiceData;
 
 public interface PersonService {
 
-    PersonServiceDto savePerson(PersonServiceDto personServiceDto);
+    PersonServiceData savePerson(PersonServiceData personServiceData);
 
 }
