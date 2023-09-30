@@ -4,26 +4,26 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 import su.woland.learningspringboot.controller.dto.PersonRequest;
 import su.woland.learningspringboot.controller.dto.PersonResponse;
-import su.woland.learningspringboot.service.dto.PersonServiceData;
+import su.woland.learningspringboot.service.dto.PersonServiceProps;
 
 @Component
 public class RequestResponseMapper {
 
-    public PersonServiceData toPersonServiceDto(@NotNull PersonRequest personRequest) {
-        PersonServiceData personServiceData = new PersonServiceData();
+    public PersonServiceProps toPersonServiceDto(@NotNull PersonRequest personRequest) {
+        PersonServiceProps personServiceProps = new PersonServiceProps();
 
-        personServiceData.setName(personRequest.getName());
-        personServiceData.setAge(personRequest.getAge());
+        personServiceProps.setName(personRequest.getName());
+        personServiceProps.setAge(personRequest.getAge());
 
-        return personServiceData;
+        return personServiceProps;
     }
 
-    public PersonResponse toPersonResponseDto(@NotNull PersonServiceData personServiceData) {
+    public PersonResponse toPersonResponseDto(@NotNull PersonServiceProps personServiceProps) {
         PersonResponse personResponse = new PersonResponse();
 
-        personResponse.setId(personServiceData.getId());
-        personResponse.setName(personServiceData.getName());
-        personResponse.setAge(personServiceData.getAge());
+        personResponse.setId(personServiceProps.getId());
+        personResponse.setName(personServiceProps.getName());
+        personResponse.setAge(personServiceProps.getAge());
 
         return personResponse;
     }

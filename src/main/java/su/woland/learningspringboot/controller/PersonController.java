@@ -8,7 +8,7 @@ import su.woland.learningspringboot.controller.dto.PersonRequest;
 import su.woland.learningspringboot.controller.dto.PersonResponse;
 import su.woland.learningspringboot.controller.mapper.RequestResponseMapper;
 import su.woland.learningspringboot.service.PersonService;
-import su.woland.learningspringboot.service.dto.PersonServiceData;
+import su.woland.learningspringboot.service.dto.PersonServiceProps;
 
 @AllArgsConstructor
 @RestController
@@ -18,10 +18,10 @@ public class PersonController {
     private final RequestResponseMapper requestResponseMapper;
 
     @PostMapping("/person")
-    public PersonResponse save(@RequestBody PersonRequest personRequest) {
-        PersonServiceData personServiceData = personService.savePerson(requestResponseMapper.toPersonServiceDto(personRequest));
+    public PersonResponse person(@RequestBody PersonRequest personRequest) {
+        PersonServiceProps personServiceProps = personService.savePerson(requestResponseMapper.toPersonServiceDto(personRequest));
 
-        return requestResponseMapper.toPersonResponseDto(personServiceData);
+        return requestResponseMapper.toPersonResponseDto(personServiceProps);
     }
 
 }

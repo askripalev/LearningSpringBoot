@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PersonServiceData {
+public class PersonServiceProps {
 
     private Long id;
     private String name;

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import su.woland.learningspringboot.persistence.entity.Person;
 import su.woland.learningspringboot.persistence.gateway.PersistenceGateway;
 import su.woland.learningspringboot.service.PersonService;
-import su.woland.learningspringboot.service.dto.PersonServiceData;
+import su.woland.learningspringboot.service.dto.PersonServiceProps;
 import su.woland.learningspringboot.service.mapper.ServicePersistenceMapper;
 
 @AllArgsConstructor
@@ -16,10 +16,10 @@ public class PersonServiceImpl implements PersonService {
     private final PersistenceGateway persistenceGateway;
 
     @Override
-    public PersonServiceData savePerson(PersonServiceData personServiceData) {
-        Person person = persistenceGateway.savePerson(servicePersistenceMapper.toPerson(personServiceData));
+    public PersonServiceProps savePerson(PersonServiceProps personServiceProps) {
+        Person person = persistenceGateway.savePerson(servicePersistenceMapper.toPerson(personServiceProps));
 
-        return servicePersistenceMapper.toPersonServiceData(person);
+        return servicePersistenceMapper.toPersonServiceProps(person);
     }
 
 }

@@ -3,28 +3,28 @@ package su.woland.learningspringboot.service.mapper;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 import su.woland.learningspringboot.persistence.entity.Person;
-import su.woland.learningspringboot.service.dto.PersonServiceData;
+import su.woland.learningspringboot.service.dto.PersonServiceProps;
 
 @Component
 public class ServicePersistenceMapper {
 
-    public Person toPerson(@NotNull PersonServiceData personServiceData) {
+    public Person toPerson(@NotNull PersonServiceProps personServiceProps) {
         Person person = new Person();
 
-        person.setName(personServiceData.getName());
-        person.setAge(personServiceData.getAge());
+        person.setName(personServiceProps.getName());
+        person.setAge(personServiceProps.getAge());
 
         return person;
     }
 
-    public PersonServiceData toPersonServiceData(@NotNull Person person) {
-        PersonServiceData personServiceData = new PersonServiceData();
+    public PersonServiceProps toPersonServiceProps(@NotNull Person person) {
+        PersonServiceProps personServiceProps = new PersonServiceProps();
 
-        personServiceData.setId(person.getId());
-        personServiceData.setName(person.getName());
-        personServiceData.setAge(person.getAge());
+        personServiceProps.setId(person.getId());
+        personServiceProps.setName(person.getName());
+        personServiceProps.setAge(person.getAge());
 
-        return personServiceData;
+        return personServiceProps;
     }
 
 }
