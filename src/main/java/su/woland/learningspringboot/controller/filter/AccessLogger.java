@@ -50,7 +50,7 @@ public class AccessLogger extends OncePerRequestFilter {
                     .append("\n");
         }
 
-        requestLog.append("Body:\n").append(jsonPrettyPrint(new String(requestBody, StandardCharsets.UTF_8)));
+        requestLog.append("Body:\n").append(jsonPrettyPrint(requestBody));
 
         return requestLog.toString();
     }
@@ -68,19 +68,19 @@ public class AccessLogger extends OncePerRequestFilter {
                 .append("\n");
 
         cachedResponse.getHeaderNames()
-                .forEach(item -> responseLog.append(item)
+                .forEach(header -> responseLog.append(header)
                         .append(": ")
-                        .append(cachedResponse.getHeader(item))
+                        .append(cachedResponse.getHeader(header))
                         .append("\n"));
 
-        responseLog.append("Body:\n").append(jsonPrettyPrint(new String(responseBody, StandardCharsets.UTF_8)));
+        responseLog.append("Body:\n").append(jsonPrettyPrint(responseBody));
 
         return responseLog.toString();
     }
 
-    private String jsonPrettyPrint(String sourceJsonString) throws JsonProcessingException {
+    private String jsonPrettyPrint(byte[] sourceJsonString) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-        Object jsonObject = objectMapper.readValue(sourceJsonString, Object.class);
+        Object jsonObject = objectMapper.readValue(new String(sourceJsonString, StandardCharsets.UTF_8), Object.class);
 
         return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
     }
