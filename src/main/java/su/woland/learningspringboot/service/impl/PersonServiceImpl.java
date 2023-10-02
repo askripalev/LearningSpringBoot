@@ -1,6 +1,7 @@
 package su.woland.learningspringboot.service.impl;
 
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import su.woland.learningspringboot.persistence.entity.Person;
 import su.woland.learningspringboot.persistence.gateway.PersistenceGateway;
@@ -10,6 +11,7 @@ import su.woland.learningspringboot.service.mapper.ServicePersistenceMapper;
 
 @AllArgsConstructor
 @Service
+@Primary
 public class PersonServiceImpl implements PersonService {
 
     private final ServicePersistenceMapper servicePersistenceMapper;
