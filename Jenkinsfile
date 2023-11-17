@@ -7,10 +7,10 @@ pipeline {
         TZ = 'Europe/Moscow'
     }
 
-    tools { 
-        maven 'Maven 3.9.5' 
-        jdk 'oracle-jdk21' 
-    }
+    //tools { 
+      //  maven 'Maven 3.9.5' 
+       // jdk 'oracle-jdk21' 
+    //}
     
     options {
         ansiColor('xterm')
@@ -30,6 +30,7 @@ pipeline {
 
         stage ('Build') {
             steps {
+                sh 'sleep 300'
                 echo 'This is a minimal pipeline.'
             }
         }
