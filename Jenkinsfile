@@ -20,6 +20,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                sh 'printenv'
+
                 script {
                     def container_tag = env.GIT_URL =~ /^https:\/\/([\w\.\/\-_]+)\.git$/
                     if (!container_tag.matches()) {
