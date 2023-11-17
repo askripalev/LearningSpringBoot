@@ -7,10 +7,10 @@ pipeline {
         TZ = 'Europe/Moscow'
     }
 
-//    tools {
-//        jdk 'oracle-jdk21'
-//        maven 'Maven 3.9.5'
-//    }
+    tools {
+        jdk 'oracle-jdk21'
+        maven 'Maven 3.9.5'
+    }
     
     options {
         ansiColor('xterm')
@@ -20,8 +20,6 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'printenv'
-
                 script {
                     def container_tag = env.GIT_URL =~ /^https:\/\/([\w\.\/\-_]+)\.git$/
                     if (!container_tag.matches()) {
@@ -47,13 +45,28 @@ pipeline {
                     env.DEPLOYMENT_WORKDIR = docker_service[0][1] + '-' + env.GIT_BRANCH
                 }
 
-                sh 'printenv'
+                sh 'mvn package'
             }
         }
 
-//        stage('Docker Build') {
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t $CONTAINER_TAG:$GIT_BRANCH .'
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                withDockerRegistry([ credentialsId: "fecff396-4934-41d5-9cc5-a179746b52c2", url: env.GIT_REGISTRY ]) {
+                    sh 'docker push $CONTAINER_TAG:$GIT_BRANCH'
+                }
+            }
+        }
+
+//        stage('Deployment') {
 //            steps {
-//                sh 'docker build -t $CONTAINER_TAG:$GIT_BRANCH .'
+//                git credentialsId: 'fecff396-4934-41d5-9cc5-a179746b52c2', url: 'https://git.aispm.ttk.ru/ttk/ansible.git'
+//                ansiblePlaybook credentialsId: '588bd061-af7c-4332-8565-80952c8effc5', inventory: 'inventories/lk/' + env.GIT_BRANCH, playbook: 'lk.yml', extraVars: [service_name: env.DOCKER_SERVICE], colorized: true
 //            }
 //        }
     }
