@@ -1,9 +1,22 @@
 pipeline {
-    agent any
+    agent {
+        label 'jenkins-agent-bullseye'
+    }
+
+    environment {
+        TZ = 'Europe/Moscow'
+    }
+
     tools { 
         maven 'Maven 3.9.5' 
         jdk 'jdk21' 
     }
+    
+    options {
+        ansiColor('xterm')
+        timestamps()
+    }
+
     stages {
         stage ('Initialize') {
             steps {
