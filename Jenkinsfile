@@ -7,10 +7,10 @@ pipeline {
         TZ = 'Europe/Moscow'
     }
 
-    tools { 
-        jdk 'oracle-jdk21'
-        maven 'Maven 3.9.5'
-    }
+//    tools {
+//        jdk 'oracle-jdk21'
+//        maven 'Maven 3.9.5'
+//    }
     
     options {
         ansiColor('xterm')
@@ -45,14 +45,14 @@ pipeline {
                     env.DEPLOYMENT_WORKDIR = docker_service[0][1] + '-' + env.GIT_BRANCH
                 }
 
-                sh 'mvn package'
+                sh 'printenv'
             }
         }
 
-        stage('Docker Build') {
-            steps {
-                sh 'docker build -t $CONTAINER_TAG:$GIT_BRANCH .'
-            }
-        }
+//        stage('Docker Build') {
+//            steps {
+//                sh 'docker build -t $CONTAINER_TAG:$GIT_BRANCH .'
+//            }
+//        }
     }
 }
