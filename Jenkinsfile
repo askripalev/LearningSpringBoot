@@ -9,7 +9,7 @@ pipeline {
 
     tools { 
         maven 'Maven 3.9.5' 
-        jdk 'jdk21' 
+        jdk 'oracle-jdk21' 
     }
     
     options {
