@@ -49,7 +49,7 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'ls -laR'
+                sh 'docker build -t $CONTAINER_TAG:$GIT_BRANCH .'
             }
         }
     }
