@@ -8,8 +8,8 @@ pipeline {
     }
 
     tools { 
-        maven 'Maven 3.9.5' 
-        jdk 'oracle-jdk21' 
+        jdk 'oracle-jdk21'
+        maven 'Maven 3.9.5'
     }
     
     options {
@@ -18,20 +18,9 @@ pipeline {
     }
 
     stages {
-        stage ('Initialize') {
-            steps {
-                sh '''
-                    echo "PATH = ${PATH}"
-                    echo "JAVA_HOME = ${JAVA_HOME}"
-                    echo "M2_HOME = ${M2_HOME}"
-                ''' 
-            }
-        }
-
         stage ('Build') {
             steps {
-                //sh 'sleep 300'
-                echo 'This is a minimal pipeline.'
+                sh 'mvn clean package'
             }
         }
     }
