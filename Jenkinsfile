@@ -18,7 +18,7 @@ pipeline {
     }
 
     stages {
-        stage ('Build') {
+        stage('Build') {
             steps {
                 script {
                     def container_tag = env.GIT_URL =~ /^https:\/\/([\w\.\/\-_]+)\.git$/
@@ -43,9 +43,9 @@ pipeline {
 
                     env.DOCKER_SERVICE = docker_service[0][2]
                     env.DEPLOYMENT_WORKDIR = docker_service[0][1] + '-' + env.GIT_BRANCH
-
-                    sh 'mvn clean package'
                 }
+
+                sh 'mvn package'
             }
         }
 
