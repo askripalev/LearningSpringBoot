@@ -33,8 +33,8 @@ public class AccessLogger extends OncePerRequestFilter {
 
         filterChain.doFilter(cachedRequest, cachedResponse);
 
-        log.info("Request:\n" + logRequest(cachedRequest));
-        log.info("Response:\n" + logResponse(cachedResponse));
+        log.info("Request:\n{}", logRequest(cachedRequest));
+        log.info("Response:\n{}", logResponse(cachedResponse));
     }
 
     private @NotNull String logRequest(@NotNull ContentCachingRequestWrapper cachedRequest) throws JsonProcessingException {
@@ -77,6 +77,10 @@ public class AccessLogger extends OncePerRequestFilter {
     }
 
     private String jsonPrettyPrint(byte[] sourceJsonString) throws JsonProcessingException {
+        if (sourceJsonString.length == 0) {
+            return null;
+        }
+
         ObjectMapper objectMapper = new ObjectMapper();
         Object jsonObject = objectMapper.readValue(new String(sourceJsonString, StandardCharsets.UTF_8), Object.class);
 
